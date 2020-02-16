@@ -2,16 +2,11 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "Makam",
 	"patterns": [
+		{ "include": "#directive" },
 		{ "include": "#definition" },
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		},
-		{
-			"include": "#storage"
-		},
+		{ "include": "#keywords" },
+		{ "include": "#strings" },
+		{ "include": "#storage" },
 		{
 			"name": "comment.block.makam",
 			"begin": "\\(\\*",
@@ -20,6 +15,21 @@
 
 	],
 	"repository": {
+		"directive": {
+			"patterns": [{
+				"name": "meta.type.annotation.makam",
+				"begin": "%([a-z][a-zA-Z0-9_\\']*)\\s*",
+				"beginCaptures": {
+					"1": {
+						"name": "entity.other.attribute-name.makam"
+					}
+				},
+				"end": "\\.",
+				"patterns": [
+					{ "include": "#strings" }
+				]
+			}]
+		},
 		"definition": {
 			"patterns": [
 				{
@@ -30,9 +40,15 @@
 							"name": "entity.name.type.makam"
 						}
 					},
-					"end": "\\.",
+					"end": "(\\.)",
+					"endCaptures": {
+						"1": {
+							"name": "keyword.control.makam"
+						}
+					},
 					"patterns": [
-						{ "include": "#storage" }
+						{ "include": "#storage" },
+						{ "include": "#keywords" }
 					]
 				},
 				{
@@ -43,12 +59,21 @@
 							"name": "entity.name.function.makam"
 						}
 					},
-					"end": "\\.",
+					"end": "(\\.)",
+					"endCaptures": {
+						"1": {
+							"name": "keyword.control.makam"
+						}
+					},
 					"patterns": [
+						{ "include": "#storage" },
+						{ "include": "#keywords" },
+						{ "include": "#strings" },
 						{
-							"name": "variable.parameter",
+							"name": "variable.parameter.makam",
 							"match": "[A-Z][a-zA-Z0-9_\\']*"
 						}
+						
 					]
 				}
 			]
@@ -60,10 +85,16 @@
 			}]
 		},
 		"keywords": {
-			"patterns": [{
-				"name": "keyword.other.makam",
-				"match": "\\b(if|then|else|when|fun|pfun)\\b"
-			}]
+			"patterns": [
+				{
+					"name": "keyword.control.makam",
+					"match": ":-|=>|->"
+				},
+				{
+					"name": "keyword.other.makam",
+					"match": "\\b(if|then|else|when|fun|pfun)\\b"
+				}
+		]
 		},
 		"strings": {
 			"patterns": [
@@ -79,7 +110,7 @@
 					]
 				},
 				{
-					"name": "string.quoted.other",
+					"name": "string.quoted.other.makam",
 					"begin": "<<",
 					"end": ">>"
 				}
