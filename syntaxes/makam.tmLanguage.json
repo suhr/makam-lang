@@ -1,0 +1,90 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Makam",
+	"patterns": [
+		{ "include": "#definition" },
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#storage"
+		},
+		{
+			"name": "comment.block.makam",
+			"begin": "\\(\\*",
+			"end": "\\*\\)"
+		}
+
+	],
+	"repository": {
+		"definition": {
+			"patterns": [
+				{
+					"name": "meta.type.annotation.makam",
+					"begin": "([a-z][a-zA-Z0-9_\\']*)\\s*:",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.type.makam"
+						}
+					},
+					"end": "\\.",
+					"patterns": [
+						{ "include": "#storage" }
+					]
+				},
+				{
+					"name": "meta.function.makam",
+					"begin": "([a-z][a-zA-Z0-9_\\']*)",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.makam"
+						}
+					},
+					"end": "\\.",
+					"patterns": [
+						{
+							"name": "variable.parameter",
+							"match": "[A-Z][a-zA-Z0-9_\\']*"
+						}
+					]
+				}
+			]
+		},
+		"storage": {
+			"patterns": [{
+				"name": "storage.type.makam",
+				"match": "\\b(type|prop|pred|bool|int|list|string)\\b"
+			}]
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.other.makam",
+				"match": "\\b(if|then|else|when|fun|pfun)\\b"
+			}]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.quoted.double.makam",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.makam",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.other",
+					"begin": "<<",
+					"end": ">>"
+				}
+			]
+		}
+	},
+	"scopeName": "source.makam"
+}
