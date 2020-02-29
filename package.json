@@ -3,7 +3,7 @@
     "publisher": "suharik",
     "displayName": "Makam Lang",
     "description": "Makam language support",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "engines": {
         "vscode": "^1.40.0"
     },
@@ -22,5 +22,9 @@
             "scopeName": "source.makam",
             "path": "./syntaxes/makam.tmLanguage.json"
         }]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/suhr/makam-lang.git"
     }
 }

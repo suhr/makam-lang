@@ -8,6 +8,11 @@
 		{ "include": "#strings" },
 		{ "include": "#storage" },
 		{
+			"name": "comment.line.makam",
+			"begin": "% ",
+			"end": "\n"
+		},
+		{
 			"name": "comment.block.makam",
 			"begin": "\\(\\*",
 			"end": "\\*\\)"
