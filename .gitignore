@@ -3,3 +3,4 @@
 .vscode-test/**
 vsc-extension-quickstart.md
 *.vsix
+node_modules

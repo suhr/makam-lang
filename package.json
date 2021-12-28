@@ -3,28 +3,111 @@
     "publisher": "suharik",
     "displayName": "Makam Lang",
     "description": "Makam language support",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "engines": {
-        "vscode": "^1.40.0"
+        "vscode": "^1.58.1"
     },
     "categories": [
         "Programming Languages"
     ],
+    "activationEvents": [
+        "onLanguage:makam"
+    ],
+    "main": "./src/extension.js",
     "contributes": {
-        "languages": [{
-            "id": "makam",
-            "aliases": ["Makam", "makam"],
-            "extensions": [".makam"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "makam",
-            "scopeName": "source.makam",
-            "path": "./syntaxes/makam.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "makam",
+                "aliases": [
+                    "Makam",
+                    "makam"
+                ],
+                "extensions": [
+                    ".makam"
+                ],
+                "configuration": "./syntaxes/makam.conf.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "makam",
+                "scopeName": "source.makam",
+                "path": "./syntaxes/makam.tmLanguage.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "language-makam.createTerminal",
+                "title": "Makam: Create REPL"
+            },
+            {
+                "command": "language-makam.loadScript",
+                "title": "Makam: Load Script"
+            },
+            {
+                "command": "language-makam.executeSelection",
+                "title": "Makam: Execute Selection"
+            },
+            {
+                "command": "language-makam.executeLine",
+                "title": "Makam: Execute Line"
+            },
+            {
+                "command": "language-makam.executeLineAdvance",
+                "title": "Makam: Execute Line and Advance"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "language-makam.executeSelection",
+                "key": "ctrl+E",
+                "when": "editorTextFocus && editorLangId == 'makam'"
+            },
+            {
+                "command": "language-makam.loadScript",
+                "key": "ctrl+L",
+                "when": "editorTextFocus && editorLangId == 'makam'"
+            },
+            {
+                "command": "language-makam.executeLine",
+                "key": "ctrl+shift+enter",
+                "when": "editorTextFocus && editorLangId == 'makam'"
+            },
+            {
+                "command": "language-makam.executeLineAdvance",
+                "key": "ctrl+enter",
+                "when": "editorTextFocus && editorLangId == 'makam'"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "Makam configuration",
+            "properties": {
+                "makam.executablePath": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": "makam",
+                    "description": "Points to the Makam executable.",
+                    "scope": "window"
+                }
+            }
+        }
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/suhr/makam-lang.git"
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "^8.10.66",
+        "@types/vscode": "^1.58.1",
+        "tslint": "^5.16.0",
+        "typescript": "^3.9.10"
     }
 }
